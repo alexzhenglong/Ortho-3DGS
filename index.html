@@ -71,23 +71,86 @@
     <img src="assets/teaser.png" alt="Ortho-3DGS teaser">
   </section>
 
-  <section id="results">
-    <h2>Results</h2>
-    <p>Qualitative and quantitative comparisons (examples):</p>
+<section id="results">
+  <h2>Results</h2>
+  <p>Side-by-side visual comparison of orthophoto generation methods:</p>
 
-    <div class="two-col">
-      <div class="col">
-        <h3>Method comparison (visual)</h3>
-        <img src="assets/result_compared_methods.png" alt="Comparison: ContextCapture / Pix4D / MetaShape / Ortho-3DGS">
-      </div>
-      <div class="col">
-        <h3>Geometric accuracy</h3>
-        <img src="assets/result_rmse.png" alt="Geometric accuracy plots or tables">
-      </div>
+  <div class="slider-container">
+    <div class="slider">
+      <img src="assets/contextcapture.png" alt="ContextCapture">
+      <img src="assets/metashape.png" alt="Metashape">
+      <img src="assets/pix4d.png" alt="Pix4Dmapper">
+      <img src="assets/orthongp.png" alt="Ortho-NGP">
+      <img src="assets/ours.png" alt="Ours (Ortho-3DGS)">
     </div>
+    <input type="range" min="0" max="4" value="0" step="1" id="sliderControl">
+  </div>
 
-    <p style="margin-top:14px;">Tips: replace the two example images above with high-resolution crops stored in <code>assets/</code>. For side-by-side slider comparisons consider adding a small JS script or using a CSS-based slider (optional).</p>
-  </section>
+  <div class="method-labels">
+    <span>ContextCapture</span>
+    <span>Metashape</span>
+    <span>Pix4Dmapper</span>
+    <span>Ortho-NGP</span>
+    <span>Ours (Ortho-3DGS)</span>
+  </div>
+</section>
+
+<style>
+.slider-container {
+  position: relative;
+  max-width: 880px;
+  margin: 20px auto;
+  text-align: center;
+}
+.slider {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.slider img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.slider img.active {
+  opacity: 1;
+}
+#sliderControl {
+  width: 100%;
+  margin-top: 16px;
+}
+.method-labels {
+  display: flex;
+  justify-content: space-between;
+  max-width: 880px;
+  margin: 8px auto;
+  font-size: 0.9rem;
+  color: #444;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const slider = document.getElementById("sliderControl");
+  const images = document.querySelectorAll(".slider img");
+  
+  function updateSlider(index) {
+    images.forEach((img, i) => {
+      img.classList.toggle("active", i === index);
+    });
+  }
+
+  slider.addEventListener("input", function() {
+    updateSlider(parseInt(this.value));
+  });
+
+  updateSlider(0); // 默认显示第一张
+});
+</script>
+
 
   <section id="video">
     <h2>Video Demo</h2>
