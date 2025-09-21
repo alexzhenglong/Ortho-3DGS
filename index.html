@@ -6,69 +6,145 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
       line-height: 1.6;
     }
-    h1, h2 {
+    header {
       text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
     }
     .authors {
-      text-align: center;
-      margin-bottom: 20px;
+      margin: 10px 0;
     }
     .links {
-      text-align: center;
-      margin-bottom: 40px;
+      margin: 20px 0;
     }
     .links a {
       margin: 0 10px;
       text-decoration: none;
-      color: #007acc;
       font-weight: bold;
+      color: #007acc;
+    }
+    section {
+      margin: 40px 0;
     }
     img {
+      max-width: 100%;
+      border-radius: 12px;
       display: block;
       margin: 20px auto;
-      max-width: 100%;
-      border-radius: 10px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    footer {
+      text-align: center;
+      margin: 50px 0 20px;
+      color: gray;
+      font-size: 0.9em;
+    }
+    nav {
+      position: fixed;
+      top: 30%;
+      left: 20px;
+    }
+    nav a {
+      display: block;
+      margin: 10px 0;
+      text-decoration: none;
+      color: #444;
+      font-size: 0.95em;
+    }
+    nav a:hover {
+      color: #007acc;
     }
   </style>
 </head>
 <body>
 
-  <h1>Ortho4D-GS: Robust Orthophoto Generation in Weakly Dynamic Scenes</h1>
+  <!-- 左侧导航 -->
+  <nav>
+    <a href="#abstract">Abstract</a>
+    <a href="#teaser">Teaser</a>
+    <a href="#results">Results</a>
+    <a href="#video">Video</a>
+    <a href="#citation">Citation</a>
+  </nav>
 
-  <div class="authors">
-    <p><b>Junxing Yang</b>, <b>Cai Alex</b>, <b>etc.</b></p>
-  </div>
+  <!-- 顶部信息 -->
+  <header>
+    <h1>Ortho4D-GS: Robust Orthophoto Generation in Weakly Dynamic Scenes</h1>
+    <p class="authors"><b>Junxing Yang</b>, <b>Cai Alex</b>, <b>Others</b></p>
+    <div class="links">
+      <a href="paper.pdf">[Paper]</a>
+      <a href="poster.pdf">[Poster]</a>
+      <a href="https://github.com/你的仓库链接">[Code]</a>
+      <a href="https://www.youtube.com/你的视频ID">[Video]</a>
+    </div>
+  </header>
 
-  <div class="links">
-    <a href="paper.pdf">[Paper]</a>
-    <a href="poster.pdf">[Poster]</a>
-    <a href="https://github.com/你的仓库链接">[Code]</a>
-    <a href="https://www.youtube.com/你的视频ID">[Video]</a>
-  </div>
+  <!-- 摘要 -->
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>
+      We propose <b>Ortho4D-GS</b>, a robust orthophoto generation method
+      using enhanced 3D Gaussian Splatting. By integrating DINO features and
+      appearance modeling, our method effectively reduces ghosting artifacts
+      and enhances geometric consistency in UAV photogrammetry, even under
+      weakly dynamic scenes.
+    </p>
+  </section>
 
-  <h2>Abstract</h2>
-  <p>
-    This work proposes <b>Ortho4D-GS</b>, a robust orthophoto generation method
-    based on enhanced 3D Gaussian Splatting, designed to handle weakly dynamic
-    scenes in UAV photogrammetry. Our approach integrates DINO features and 
-    appearance modeling to reduce ghosting and improve geometric consistency.
-  </p>
+  <!-- Teaser 图 -->
+  <section id="teaser">
+    <h2>Teaser</h2>
+    <img src="assets/teaser.png" alt="Teaser image">
+  </section>
 
-  <img src="assets/teaser.png" alt="Teaser image">
+  <!-- 实验结果 -->
+  <section id="results">
+    <h2>Results</h2>
+    <p>Qualitative comparisons with Pix4D, MetaShape, ContextCapture, and our method:</p>
+    <img src="assets/result1.png" alt="Comparison results">
+    <img src="assets/result2.png" alt="Comparison results">
+  </section>
 
-  <h2>Citation</h2>
-  <pre>
+  <!-- 视频 -->
+  <section id="video">
+    <h2>Video</h2>
+    <!-- YouTube iframe 示例 -->
+    <iframe width="800" height="450"
+      src="https://www.youtube.com/embed/你的视频ID"
+      title="Demo video"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </section>
+
+  <!-- 引用 -->
+  <section id="citation">
+    <h2>Citation</h2>
+    <pre>
 @article{Ortho4DGS2025,
   title={Ortho4D-GS: Robust Orthophoto Generation in Weakly Dynamic Scenes},
   author={Yang, Junxing and Cai, Alex and ...},
   journal={IEEE J-STARS},
   year={2025}
 }
-  </pre>
+    </pre>
+  </section>
+
+  <footer>
+    &copy; 2025 Ortho4D-GS Authors. All rights reserved.
+  </footer>
 
 </body>
 </html>
