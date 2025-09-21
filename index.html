@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ortho-3DGS: True Digital Orthophoto Generation</title>
+  <title>Ortho-3DGS: True Digital Orthophoto Generation From Unmanned Aerial Vehicle Imagery Using the Depth-Regulated 3D Gaussian Splatting</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -82,7 +82,7 @@
   <!-- 顶部信息 -->
   <header>
     <h1>Ortho-3DGS: True Digital Orthophoto Generation from UAV Imagery</h1>
-    <p class="authors"><b>你的名字</b>, <b>合作者1</b>, <b>合作者2</b>, ...</p>
+    <p class="authors"><b>Junxing Yang</b>, <b>合作者1</b>, <b>合作者2</b>, ...</p>
     <div class="links">
       <a href="paper.pdf">[Paper]</a>
       <a href="poster.pdf">[Poster]</a>
@@ -95,14 +95,7 @@
   <section id="abstract">
     <h2>Abstract</h2>
     <p>
-      We present <b>Ortho-3DGS</b>, a novel approach for true digital orthophoto
-      generation from unmanned aerial vehicle (UAV) imagery. Our method introduces
-      <i>depth-regulated 3D Gaussian Splatting</i>, which leverages geometric
-      constraints and depth priors to ensure spatial accuracy and reduce ghosting
-      artifacts caused by dynamic objects and perspective distortions. Experiments
-      on urban UAV datasets demonstrate that Ortho-3DGS significantly improves
-      both geometric fidelity and visual quality compared with conventional
-      photogrammetric methods.
+True digital orthophoto maps (DOMs) are vital spatial data sources due to their high precision, detail, and accessibility. However, traditional generation methods using image differential correction with DEM/DSM often produce significant distortions from inaccurate surface data and missing building information. Conventional geometric stitching and radiometric correction methods struggle to improve quality. While neural radiance field (NeRF)-based view synthesis offers progress, issues remain in training efficiency, rendering quality, and scene editability. To address these limitations, we propose Ortho-3DGS, a novel method for orthophoto generation from UAV imagery using 3D Gaussian Splatting (3DGS). Unlike NeRF, our approach models scenes via 3D Gaussian ellipsoids, optimized with depth supervision and gradient-based refinement for explicit and accurate reconstruction. We design a dedicated orthophoto rendering pipeline to generate high-quality, distortion-free DOMs efficiently. Experiments show Ortho-3DGS surpasses traditional tools (ContextCapture, Pix4Dmapper, Metashape) and NeRF-based methods (Ortho-NeRF, Ortho-NGP) in both radiometric and geometric performance. Ortho-3DGS offers commercial-grade accuracy while effectively mitigating distortions and artifacts, especially in complex environments. These results demonstrate its value for fast, precise orthophoto generation in diverse geospatial applications.
     </p>
   </section>
 
