@@ -27,6 +27,14 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 | **C++ Compiler** | Visual Studio 2019 (Windows) or GCC (Linux) |
 
 -----
+## 📅 Roadmap / Todo List
+
+- [x] **Depth-Regulated Optimizer**: Official implementation of the geometry-enhanced training pipeline.
+- [x] **Non-Invasive Orthorectification**: Rendering scripts for DOM generation.
+- [ ] **Pre-trained Models (GCPs)**: Optimized checkpoints for various urban scenes (Coming Soon...).
+- [ ] **UAV Benchmarks**: Our high-resolution drone datasets with ground truth (Coming Soon...).
+
+---
 
 ## 🚀 Workflow Pipeline
 
@@ -59,14 +67,22 @@ python train.py -s <path_to_data> -m <path_to_model> --iterations 30000
 
 ### 3\. DOM Generation (Orthorectification)
 
-The final stage transforms the 3D representation into a 2D True Digital Orthophoto (DOM).
+The final stage transforms the trained 3D Gaussian representation into a high-resolution, georeferenced **True Digital Orthophoto (DOM)**. We provide two distinct rendering pipelines:
 
-```bash
-python render_dom.py -m <path_to_trained_model> -s <path_to_data>
-```
+#### 🔄 Dual Rendering Modes
+| Feature | **Option A: Virtual Camera (Default)** | **Option B: Jacobian-based** |
+| :--- | :--- | :--- |
+| **Logic** | **Non-invasive** geometry transformation | Direct modification of the **CUDA kernel** |
+| **Modification** | No changes to the standard rasterizer | Custom Jacobian matrix implementation |
+| **Precision** | Commercial-grade (Standard) | High-precision (Steep/Complex terrain) |
+| **Compatibility** | Plug-and-play with vanilla 3DGS | Optimized for research rigor |
 
-> **💡 Innovation: Rasterizer-Independent Correction**
-> Unlike other methods that require complex modifications to the `diff-gaussian-rasterization` CUDA kernels, our approach uses a **Virtual Orthographic Camera**. By mathematically transforming the projection matrices to a normalized horizontal datum, we produce georeferenced, distortion-free DOMs using the standard high-speed splatting engine.
+---
+
+#### 💡 Innovation: Rasterizer-Independent Correction
+Unlike other methods that require complex modifications to the `diff-gaussian-rasterization` CUDA kernels, our **Option A** uses a **Virtual Orthographic Camera** approach. 
+* **The Logic**: By mathematically transforming the projection matrices to a normalized horizontal datum, we leverage the standard high-speed splatting engine to produce distortion-free DOMs.
+* **The Benefit**: This ensures seamless integration with the standard 3DGS ecosystem while maintaining georeferenced accuracy without the need for custom CUDA compilation.
 
 -----
 
