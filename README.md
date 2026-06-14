@@ -32,8 +32,8 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 - [x] **Depth-Regulated Optimizer**: Official implementation of the geometry-enhanced training pipeline.
 - [x] **Non-Invasive Orthorectification**: Rendering scripts for DOM generation.
-- [ ] **Pre-trained Models (GCPs)**: Checkpoints for various urban scenes (Coming Soon...).
-- [ ] **UAV Benchmarks**: UAV datasets with ground truth (Coming Soon...).
+- [ ] **Pre-trained Models (GCPs)**: Checkpoints for various urban scenes.
+- [ ] **Open-Source Code & Datasets**: Full public release of our research code and UAV benchmarks scheduled for the end of 2026.
 
 ---
 
@@ -51,35 +51,34 @@ Please refer to the [nerfstudio custom dataset documentation](https://docs.nerf.
 
 ### 2. Depth Prior Generation (Depth Regularization)
 
-To prevent Gaussian over-expansion and improve geometric accuracy in untextured areas (e.g., roads and building roofs), our pipeline utilizes depth maps as priors during optimization. 
+To achieve high-fidelity true orthophotos, our depth-regulated optimization mitigates floaters and geometry degradation commonly found in untextured areas of UAV captures (e.g., roads, flat building roofs). By utilizing depth maps as structural priors during optimization, Ortho-3DGS effectively forces the Gaussians to align with the actual terrain geometry.
 
-For real-world UAV datasets, you must generate depth maps for your input images before training:
+For real-world UAV datasets, you must generate depth maps for your input images before training. We utilize Depth Anything V2 for this process:
 
 1. Clone the **Depth Anything V2** repository:
-   ```bash
+```bash
    git clone [https://github.com/DepthAnything/Depth-Anything-V2.git](https://github.com/DepthAnything/Depth-Anything-V2.git)
 
 ```
 
-2. Download the [Depth-Anything-V2-Large](https://www.google.com/search?q=https://huggingface.co/depth-anything/Depth-Anything-V2-Large/resolve/main/depth_anything_v2_vitl.pth%3Fdownload%3Dtrue) weights and place them under `Depth-Anything-V2/checkpoints/`.
+2. Download the [Depth-Anything-V2-Large](https://huggingface.co/depth-anything/Depth-Anything-V2-Large/resolve/main/depth_anything_v2_vitl.pth?download=true) weights and place them under `Depth-Anything-V2/checkpoints/`.
 3. Generate the depth maps:
+
 ```bash
-python Depth-Anything-V2/run.py --encoder vitl --pred-only --grayscale --img-path <path to input images> --outdir <output path>
+   python Depth-Anything-V2/run.py --encoder vitl --pred-only --grayscale --img-path <path to input images> --outdir <output path>
 
 ```
 
+4. Generate the `depth_params.json` file to align the monocular depth scale with your COLMAP sparse reconstruction:
 
-4. Generate the `depth_params.json` scale file:
 ```bash
-python utils/make_depth_scale.py --base_dir <path to colmap> --depths_dir <path to generated depths>
+   python utils/make_depth_scale.py --base_dir <path to colmap> --depths_dir <path to generated depths>
 
 ```
-
-
 
 ### 3. Model Training (Optimizer)
 
-Train the scene using 3D Gaussian ellipsoids with depth-regulated constraints.
+Train the scene using 3D Gaussian ellipsoids with depth-regulated constraints. Notice the addition of the `-d` parameter to load the depth priors.
 
 ```bash
 conda activate gaussian_splatting
@@ -108,7 +107,7 @@ The final stage transforms the trained 3D Gaussian representation into a georefe
 #### 🔄 Dual Rendering Methods
 
 | Feature | **Option A: Virtual Camera (Default)** | **Option B: Jacobian-based** |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | **Logic** | Geometry transformation | Direct modification of the **CUDA kernel** |
 | **Installation** | **Plug-and-play** (No extra installation, uses vanilla 3DGS rasterizer) | **Requires installation** of our custom `ortho_rasterization` module |
 | **Precision** | Standard | Adaptive to complex terrain |
@@ -128,21 +127,20 @@ pip install .
 
 #### 🚀 How to Run
 
-By default, use the following command to generate your DOM results using the **Option A (Virtual Camera)** method. *(Note: The rendering script for the Option B direct rendering method uses different code and will be provided separately).*
+By default, use the following command to generate your DOM results using the **Option A (Virtual Camera)** method. *(Note: The rendering script for the Option B direct rendering method uses a different codebase and will be provided separately).*
 
 ```bash
 # Render using the default virtual camera method (no extra installation required)
-python render_dom.py -m <path_to_model> -s <path_to_data>
+python render_dom.py -m <path_to_model> -s <path_to_data> --mode virtual
 
 ```
-
 
 ---
 
 ## 📂 Repository Structure
 
 * `train.py`: The main optimizer with depth regulation.
-* `render_dom.py`: Script for True Orthophoto rendering (Supports both virtual camera and Jacobian-based modes).
+* `render_dom.py`: Script for True Orthophoto rendering.
 * `environment.yml`: Conda environment configuration.
 
 ---
@@ -153,7 +151,7 @@ If you find this work helpful for your research, please consider citing our pape
 
 ```bibtex
 @ARTICLE{yang2025ortho3dgs,
-  author={Yang, Junxing and Cai, Zhenglong ...王天娇..., Ye, Tong and Gao, Haoran and Huang, He},
+  author={Yang, Junxing and Cai, Zhenglong and Wang, Tianjiao and Ye, Tong and Gao, Haoran and Huang, He},
   journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
   title={Ortho-3DGS: True Digital Orthophoto Generation From Unmanned Aerial Vehicle Imagery Using the Depth-Regulated 3D Gaussian Splatting},
   year={2025},
@@ -166,7 +164,7 @@ If you find this work helpful for your research, please consider citing our pape
 
 ---
 
-**Acknowledgements**: This work was supported by the *Graduate Innovation Project*. We thank the open-source community for the foundations provided by 3DGS and Depth estimation research.
+**Acknowledgements**: This work was supported by the *Graduate Innovation Project*. We thank the open-source community for the foundations provided by 3DGS and depth estimation research.
 
 ```
 
