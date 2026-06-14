@@ -1,6 +1,6 @@
 
 ```markdown
-# Ortho-3DGS: True Digital Orthophoto Generation
+### Ortho-3DGS: True Digital Orthophoto Generation
 
 [](https://ieeexplore.ieee.org/document/10930522)
 [](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)
@@ -10,7 +10,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-## 🌟 Key Highlights
+###  🌟 Key Highlights
 
   * **Non-Invasive Orthorectification**: A rendering strategy that generates DOMs **without modifying the core CUDA rasterizer**, ensuring compatibility with the standard 3DGS ecosystem.
   * **Depth-Regulated Optimization**: Incorporates depth supervision to prevent Gaussian over-expansion, preserving edges and geometric fidelity in urban environments.
@@ -18,7 +18,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-## 🛠 Hardware & Software Requirements
+###  🛠 Hardware & Software Requirements
 
 | Requirement | Specification |
 | :--- | :--- |
@@ -29,7 +29,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-## 📅 Roadmap / Todo List
+###  📅 Roadmap / Todo List
 
 - [x] **Depth-Regulated Optimizer**: Official implementation of the geometry-enhanced training pipeline.
 - [x] **Non-Invasive Orthorectification**: Rendering scripts for DOM generation.
@@ -38,7 +38,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-## 🚀 Workflow Pipeline
+###  🚀 Workflow Pipeline
 
 > **Note**: Currently, you can use your own datasets to verify the training and rendering performance.
 
