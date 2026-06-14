@@ -103,42 +103,39 @@ python train.py -s <path_to_data> -d <path_to_depth_maps> -m <path_to_model> --i
 
 ### 4. DOM Generation (Orthorectification)
 
-The final stage transforms the trained 3D Gaussian representation into a georeferenced True Digital Orthophoto (DOM).
+The final stage transforms the trained 3D Gaussian representation into a georeferenced True Digital Orthophoto (DOM). We provide two different approaches for orthorectification:
 
 #### 🔄 Dual Rendering Methods
 
 | Feature | **Option A: Virtual Camera (Default)** | **Option B: Jacobian-based** |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | **Logic** | Geometry transformation | Direct modification of the **CUDA kernel** |
 | **Installation** | **Plug-and-play** (No extra installation, uses vanilla 3DGS rasterizer) | **Requires installation** of our custom `ortho_rasterization` module |
-| **Precision** | Standard (Commercial-grade template) | High-precision (Adaptive to steep/complex terrain) |
-| **Script** | `render_dom.py` (Direct vanilla rendering) | `render_dom.py` (With modified CUDA backend) |
+| **Precision** | Standard | Adaptive to complex terrain |
 
 ##### 🛠 Option B Installation Steps
 
-如果你想使用高精度的 **Option B (Jacobian-based)** 方法，需要先编译安装我们定制的正射光栅化模块：
+If you want to use the **Option B (Jacobian-based)** direct rendering method, you must first compile and install our custom orthographic rasterization module:
 
 ```bash
-# 进入定制的正射光栅化文件夹
+# Navigate to the custom orthographic rasterization directory
 cd submodules/ortho-rasterization
 
-# 编译并安装该模块
+# Compile and install the module
 pip install .
 
 ```
 
 #### 🚀 How to Run
 
-使用以下命令来生成你的 DOM 结果，可以通过 `--mode` 参数在两种渲染模式之间进行切换：
+By default, use the following command to generate your DOM results using the **Option A (Virtual Camera)** method. *(Note: The rendering script for the Option B direct rendering method uses different code and will be provided separately).*
 
 ```bash
-# 模式一：使用默认的虚拟相机方法直接渲染 (无需额外安装任何光栅化器)
-python render_dom.py -m <path_to_model> -s <path_to_data> --mode virtual
-
-# 模式二：使用基于雅可比矩阵的 CUDA 核心直接渲染 (需要提前安装 ortho_rasterization 模块)
-python render_dom.py -m <path_to_model> -s <path_to_data> --mode jacobian
+# Render using the default virtual camera method (no extra installation required)
+python render_dom.py -m <path_to_model> -s <path_to_data>
 
 ```
+
 
 ---
 
