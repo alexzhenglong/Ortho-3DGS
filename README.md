@@ -1,6 +1,5 @@
 
-```markdown
-### Ortho-3DGS: True Digital Orthophoto Generation
+# Ortho-3DGS: True Digital Orthophoto Generation
 
 [](https://ieeexplore.ieee.org/document/10930522)
 [](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)
@@ -10,7 +9,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-###  🌟 Key Highlights
+## 🌟 Key Highlights
 
   * **Non-Invasive Orthorectification**: A rendering strategy that generates DOMs **without modifying the core CUDA rasterizer**, ensuring compatibility with the standard 3DGS ecosystem.
   * **Depth-Regulated Optimization**: Incorporates depth supervision to prevent Gaussian over-expansion, preserving edges and geometric fidelity in urban environments.
@@ -18,7 +17,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-###  🛠 Hardware & Software Requirements
+## 🛠 Hardware & Software Requirements
 
 | Requirement | Specification |
 | :--- | :--- |
@@ -29,7 +28,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-###  📅 Roadmap / Todo List
+## 📅 Roadmap / Todo List
 
 - [x] **Depth-Regulated Optimizer**: Official implementation of the geometry-enhanced training pipeline.
 - [x] **Non-Invasive Orthorectification**: Rendering scripts for DOM generation.
@@ -38,7 +37,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 ---
 
-###  🚀 Workflow Pipeline
+## 🚀 Workflow Pipeline
 
 > **Note**: Currently, you can use your own datasets to verify the training and rendering performance.
 
@@ -108,24 +107,35 @@ The final stage transforms the trained 3D Gaussian representation into a georefe
 
 #### 🔄 Dual Rendering Methods
 
-We provide two approaches for orthorectification. You can choose the one that fits your setup:
-
 | Feature | **Option A: Virtual Camera (Default)** | **Option B: Jacobian-based** |
 | --- | --- | --- |
 | **Logic** | Geometry transformation | Direct modification of the **CUDA kernel** |
-| **Modification** | No changes to the standard rasterizer | Requires custom Jacobian matrix logic |
-| **Precision** | Standard | Adaptive to complex terrain |
-| **Compatibility** | Plug-and-play with vanilla 3DGS | Requires custom extension |
+| **Installation** | **Plug-and-play** (No extra installation, uses vanilla 3DGS rasterizer) | **Requires installation** of our custom `ortho_rasterization` module |
+| **Precision** | Standard (Commercial-grade template) | High-precision (Adaptive to steep/complex terrain) |
+| **Script** | `render_dom.py` (Direct vanilla rendering) | `render_dom.py` (With modified CUDA backend) |
+
+##### 🛠 Option B Installation Steps
+
+如果你想使用高精度的 **Option B (Jacobian-based)** 方法，需要先编译安装我们定制的正射光栅化模块：
+
+```bash
+# 进入定制的正射光栅化文件夹
+cd submodules/ortho-rasterization
+
+# 编译并安装该模块
+pip install .
+
+```
 
 #### 🚀 How to Run
 
-Use the following command to generate your DOM. Toggle between methods using the `--mode` flag:
+使用以下命令来生成你的 DOM 结果，可以通过 `--mode` 参数在两种渲染模式之间进行切换：
 
 ```bash
-# Render using the default Virtual Camera method
+# 模式一：使用默认的虚拟相机方法直接渲染 (无需额外安装任何光栅化器)
 python render_dom.py -m <path_to_model> -s <path_to_data> --mode virtual
 
-# Render using the Jacobian-based method (Requires custom extension)
+# 模式二：使用基于雅可比矩阵的 CUDA 核心直接渲染 (需要提前安装 ortho_rasterization 模块)
 python render_dom.py -m <path_to_model> -s <path_to_data> --mode jacobian
 
 ```
@@ -135,7 +145,7 @@ python render_dom.py -m <path_to_model> -s <path_to_data> --mode jacobian
 ## 📂 Repository Structure
 
 * `train.py`: The main optimizer with depth regulation.
-* `render_dom.py`: Script for True Orthophoto rendering.
+* `render_dom.py`: Script for True Orthophoto rendering (Supports both virtual camera and Jacobian-based modes).
 * `environment.yml`: Conda environment configuration.
 
 ---
@@ -146,7 +156,7 @@ If you find this work helpful for your research, please consider citing our pape
 
 ```bibtex
 @ARTICLE{yang2025ortho3dgs,
-  author={Yang, Junxing and Cai, Zhenglong and Wang, Tianjiao and Ye, Tong and Gao, Haoran and Huang, He},
+  author={Yang, Junxing and Cai, Zhenglong ...王天娇..., Ye, Tong and Gao, Haoran and Huang, He},
   journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
   title={Ortho-3DGS: True Digital Orthophoto Generation From Unmanned Aerial Vehicle Imagery Using the Depth-Regulated 3D Gaussian Splatting},
   year={2025},
