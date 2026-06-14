@@ -1,3 +1,5 @@
+
+```markdown
 # Ortho-3DGS: True Digital Orthophoto Generation
 
 [](https://ieeexplore.ieee.org/document/10930522)
@@ -55,8 +57,27 @@ To prevent Gaussian over-expansion and improve geometric accuracy in untextured 
 For real-world UAV datasets, you must generate depth maps for your input images before training:
 
 1. Clone the **Depth Anything V2** repository:
-```bash
+   ```bash
    git clone [https://github.com/DepthAnything/Depth-Anything-V2.git](https://github.com/DepthAnything/Depth-Anything-V2.git)
+
+```
+
+2. Download the [Depth-Anything-V2-Large](https://www.google.com/search?q=https://huggingface.co/depth-anything/Depth-Anything-V2-Large/resolve/main/depth_anything_v2_vitl.pth%3Fdownload%3Dtrue) weights and place them under `Depth-Anything-V2/checkpoints/`.
+3. Generate the depth maps:
+```bash
+python Depth-Anything-V2/run.py --encoder vitl --pred-only --grayscale --img-path <path to input images> --outdir <output path>
+
+```
+
+
+4. Generate the `depth_params.json` scale file:
+```bash
+python utils/make_depth_scale.py --base_dir <path to colmap> --depths_dir <path to generated depths>
+
+```
+
+
+
 ### 3. Model Training (Optimizer)
 
 Train the scene using 3D Gaussian ellipsoids with depth-regulated constraints.
