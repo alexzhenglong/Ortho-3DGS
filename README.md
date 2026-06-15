@@ -1,84 +1,80 @@
 
+
 # Ortho-3DGS: True Digital Orthophoto Generation
 
-[](https://ieeexplore.ieee.org/document/10930522)
-[](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)
-[](https://opensource.org/licenses/MIT)
-
-Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Generation From Unmanned Aerial Vehicle Imagery Using the Depth-Regulated 3D Gaussian Splatting"** published in *IEEE JSTARS (2025)*.
+Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Generation From Unmanned Aerial Vehicle Imagery Using the Depth-Regulated 3D Gaussian Splatting"**, published in *IEEE J-STARS (2025)*.
 
 ---
 
 ## 🌟 Key Highlights
 
-  * **Non-Invasive Orthorectification**: A rendering strategy that generates DOMs **without modifying the core CUDA rasterizer**, ensuring compatibility with the standard 3DGS ecosystem.
-  * **Depth-Regulated Optimization**: Incorporates depth supervision to prevent Gaussian over-expansion, preserving edges and geometric fidelity in urban environments.
-  * **Large-Scale Processing**: Features a **Progressive Chunking** mechanism to process UAV datasets while managing VRAM usage.
+* **Non-Invasive Orthorectification**: A rendering strategy that generates True Digital Orthophoto Maps (DOMs) **without modifying the core CUDA rasterizer**, ensuring seamless compatibility with the broader 3DGS ecosystem.
+* **Depth-Regulated Optimization**: Integrates depth supervision to prevent Gaussian over-expansion, strictly preserving edge sharpness and geometric fidelity in complex urban environments.
+* **Large-Scale Processing**: Employs a **Progressive Chunking** mechanism to efficiently process massive UAV datasets while keeping VRAM usage under strict control.
+
+---
+
+## 🗂️ Datasets
+
+All UAV benchmark datasets utilized in this research are publicly hosted on our **Hugging Face** repository. You can seamlessly download the pre-processed data to verify the training and rendering performance of the Ortho-3DGS pipeline.
+
+🤗 **[Download the Ortho-3DGS Datasets on Hugging Face here](https://www.google.com/search?q=YOUR_HUGGINGFACE_LINK_HERE)**
 
 ---
 
 ## 🛠 Hardware & Software Requirements
 
 | Requirement | Specification |
-| :--- | :--- |
+| --- | --- |
 | **Operating System** | Windows 10/11 or Ubuntu 22.04 |
 | **GPU** | NVIDIA GPU (Compute Capability 7.0+) with **24GB VRAM** recommended |
-| **CUDA SDK** | **11.8** (Crucial: 11.6 and 12.x are known to have compatibility issues) |
+| **CUDA SDK** | **11.8** *(Crucial: Versions 11.6 and 12.x have known compatibility issues)* |
 | **C++ Compiler** | Visual Studio 2019 (Windows) or GCC (Linux) |
-
----
-
-## 📅 Roadmap / Todo List
-
-- [x] **Depth-Regulated Optimizer**: Official implementation of the geometry-enhanced training pipeline.
-- [x] **Non-Invasive Orthorectification**: Rendering scripts for DOM generation.
-- [ ] **Pre-trained Models (GCPs)**: Checkpoints for various urban scenes.
-- [ ] **Open-Source Code & Datasets**: Full public release of our research code and UAV benchmarks scheduled for the end of 2026.
 
 ---
 
 ## 🚀 Workflow Pipeline
 
-> **Note**: Currently, you can use your own datasets to verify the training and rendering performance.
-
-The Ortho-3DGS pipeline consists of the following stages:
+The Ortho-3DGS framework is executed through a standardized four-stage pipeline:
 
 ### 1. Data Preparation (SfM)
 
-Our data format is consistent with `nerfstudio`. Before training, raw UAV images must be processed to obtain camera poses and sparse point clouds. 
+Our dataset format aligns with the `nerfstudio` standard. Prior to training, raw UAV imagery must be processed to extract camera poses and generate sparse point clouds.
 
-Please refer to the [nerfstudio custom dataset documentation](https://docs.nerf.studio/quickstart/custom_dataset.html) to download and run COLMAP for processing your raw images.
+If you are using your own captures, please refer to the [nerfstudio custom dataset documentation](https://docs.nerf.studio/quickstart/custom_dataset.html) to run COLMAP and prepare your raw images.
 
 ### 2. Depth Prior Generation (Depth Regularization)
 
-To achieve high-fidelity true orthophotos, our depth-regulated optimization mitigates floaters and geometry degradation commonly found in untextured areas of UAV captures (e.g., roads, flat building roofs). By utilizing depth maps as structural priors during optimization, Ortho-3DGS effectively forces the Gaussians to align with the actual terrain geometry.
+To construct high-fidelity true orthophotos, our optimization strategy suppresses "floaters" and geometry degradation common in textureless UAV regions (e.g., roads, flat rooftops). By injecting depth maps as structural priors, Ortho-3DGS coerces the Gaussians to adhere to the true terrain geometry.
 
-For real-world UAV datasets, you must generate depth maps for your input images before training. We utilize Depth Anything V2 for this process:
+For custom UAV datasets, depth maps must be generated before training. We utilize **Depth Anything V2** for reliable depth estimation:
 
-1. Clone the **Depth Anything V2** repository:
+1. Clone the repository:
 ```bash
-   git clone [https://github.com/DepthAnything/Depth-Anything-V2.git](https://github.com/DepthAnything/Depth-Anything-V2.git)
+git clone https://github.com/DepthAnything/Depth-Anything-V2.git
 
 ```
 
-2. Download the [Depth-Anything-V2-Large](https://huggingface.co/depth-anything/Depth-Anything-V2-Large/resolve/main/depth_anything_v2_vitl.pth?download=true) weights and place them under `Depth-Anything-V2/checkpoints/`.
+
+2. Download the [Depth-Anything-V2-Large](https://huggingface.co/depth-anything/Depth-Anything-V2-Large/resolve/main/depth_anything_v2_vitl.pth?download=true) checkpoint and place it in the `Depth-Anything-V2/checkpoints/` directory.
 3. Generate the depth maps:
-
 ```bash
-   python Depth-Anything-V2/run.py --encoder vitl --pred-only --grayscale --img-path <path to input images> --outdir <output path>
+python Depth-Anything-V2/run.py --encoder vitl --pred-only --grayscale --img-path <path_to_input_images> --outdir <output_path>
 
 ```
+
 
 4. Generate the `depth_params.json` file to align the monocular depth scale with your COLMAP sparse reconstruction:
-
 ```bash
-   python utils/make_depth_scale.py --base_dir <path to colmap> --depths_dir <path to generated depths>
+python utils/make_depth_scale.py --base_dir <path_to_colmap> --depths_dir <path_to_generated_depths>
 
 ```
+
+
 
 ### 3. Model Training (Optimizer)
 
-Train the scene using 3D Gaussian ellipsoids with depth-regulated constraints. Notice the addition of the `-d` parameter to load the depth priors.
+Train the scene using 3D Gaussian ellipsoids anchored by depth-regulated constraints. Note the crucial `-d` parameter, which loads the depth priors.
 
 ```bash
 conda activate gaussian_splatting
@@ -91,63 +87,59 @@ python train.py -s <path_to_data> -d <path_to_depth_maps> -m <path_to_model> --i
 **Key Training Parameters:**
 
 * `--source_path / -s`: Path to the source directory containing the COLMAP dataset.
-* `--model_path / -m`: Path where the trained model should be stored (default: `output/<random>`).
-* `-d`: Path to the generated depth maps directory (Crucial for Ortho-3DGS depth regularization).
-* `--eval`: Add this flag to use a MipNeRF360-style training/test split for evaluation.
-* `--resolution / -r`: Specifies resolution of the loaded images before training (`1, 2, 4` or `8` for original, 1/2, 1/4 or 1/8). Automatically rescales if width > 1.6K pixels.
-* `--data_device`: Default is `cuda`. For large/high-resolution UAV datasets, set to `cpu` to reduce VRAM consumption.
-* `--densify_from_iter` / `--densify_until_iter`: Iterations where densification starts (default: `500`) and stops (default: `15_000`).
-
----
+* `--model_path / -m`: Output path for the trained model checkpoints (default: `output/<random>`).
+* `-d`: Path to the generated depth maps directory *(Crucial for Ortho-3DGS)*.
+* `--eval`: Flag to enable a MipNeRF360-style training/test split for evaluation.
+* `--resolution / -r`: Image downscaling factor before training (`1, 2, 4`, or `8`). Automatically rescales if image width exceeds 1.6K pixels.
+* `--data_device`: Default is `cuda`. Set to `cpu` for large/high-resolution UAV datasets to mitigate VRAM bottlenecks.
 
 ### 4. DOM Generation (Orthorectification)
 
-The final stage transforms the trained 3D Gaussian representation into a georeferenced True Digital Orthophoto (DOM). We provide two different approaches for orthorectification:
+The final stage projects the trained 3D Gaussians into a georeferenced True Digital Orthophoto (DOM). We provide two distinct rendering modes:
 
-#### 🔄 Dual Rendering Methods
+#### 🔄 Rendering Methods Comparison
 
-| Feature | **Option A: Virtual Camera (Default)** | **Option B: Jacobian-based** |
+| Feature | Option A: Virtual Camera (Default) | Option B: Jacobian-based |
 | --- | --- | --- |
-| **Logic** | Geometry transformation | Direct modification of the **CUDA kernel** |
-| **Installation** | **Plug-and-play** (No extra installation, uses vanilla 3DGS rasterizer) | **Requires installation** of our custom `ortho_rasterization` module |
-| **Precision** | Standard | Adaptive to complex terrain |
+| **Logic** | Geometry transformation | Direct CUDA kernel modification |
+| **Installation** | **Plug-and-play** (Uses vanilla 3DGS rasterizer) | **Requires installation** of a custom module |
+| **Precision** | Standard | Adaptive to complex topography |
 
-##### 🛠 Option B Installation Steps
+#### 🛠 Option B Installation (Optional)
 
-If you want to use the **Option B (Jacobian-based)** direct rendering method, you must first compile and install our custom orthographic rasterization module:
+If you require the **Jacobian-based** direct rendering method, compile and install the custom orthographic rasterization module first:
 
 ```bash
-# Navigate to the custom orthographic rasterization directory
 cd submodules/ortho-rasterization
-
-# Compile and install the module
 pip install .
 
 ```
 
-#### 🚀 How to Run
+#### 🚀 Execution
 
-By default, use the following command to generate your DOM results using the **Option A (Virtual Camera)** method. *(Note: The rendering script for the Option B direct rendering method uses a different codebase and will be provided separately).*
+By default, we recommend utilizing the **Virtual Camera** method (Option A) for streamlined rendering:
 
 ```bash
-# Render using the default virtual camera method (no extra installation required)
+# Render using the default virtual camera approach (No extra compilation needed)
 python render_dom.py -m <path_to_model> -s <path_to_data> --mode virtual
 
 ```
+
+*(Note: Scripts targeting the Option B direct rendering mechanism will be provided in a separate update.)*
 
 ---
 
 ## 📂 Repository Structure
 
-* `train.py`: The main optimizer with depth regulation.
-* `render_dom.py`: Script for True Orthophoto rendering.
-* `environment.yml`: Conda environment configuration.
+* `train.py`: Core optimizer integrating depth regularization.
+* `render_dom.py`: Execution script for True Orthophoto projection.
+* `environment.yml`: Conda environment dependencies.
 
 ---
 
 ## 📝 Citation
 
-If you find this work helpful for your research, please consider citing our paper:
+If you find our code, datasets, or methodology useful for your research, please consider citing our paper:
 
 ```bibtex
 @ARTICLE{yang2025ortho3dgs,
@@ -164,8 +156,4 @@ If you find this work helpful for your research, please consider citing our pape
 
 ---
 
-**Acknowledgements**: This work was supported by the *Graduate Innovation Project*. We thank the open-source community for the foundations provided by 3DGS and depth estimation research.
-
-```
-
-```
+**Acknowledgements**: This work was supported by the *Graduate Innovation Project*. We extend our gratitude to the open-source community for the foundational work in 3D Gaussian Splatting and monocular depth estimation.
