@@ -1,3 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ortho-3DGS: True Digital Orthophoto Generation</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"/>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .hero-body {
+      padding-bottom: 2rem;
+    }
+    .publication-title {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .author-block {
+      display: inline-block;
+      margin-right: 15px;
+      font-size: 1.2rem;
+    }
+    .publication-links {
+      margin-top: 1.5rem;
+    }
+    .link-button {
+      margin: 5px;
+      border-radius: 20px;
+    }
+    /* Slider Customization */
+    .comparison-container {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .image-label {
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .framework-image {
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Ortho-3DGS: True Digital Orthophoto Generation From UAV Imagery Using Depth-Regulated 3D Gaussian Splatting</h1>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Junxing Yang,</span>
+            <span class="author-block">Zhenglong Cai,</span>
+            <span class="author-block">Tianjiao Wang,</span>
+            <span class="author-block">Haoran Gao,</span>
+            <span class="author-block">He Huang</span>
+          </div>
+
+          <div class="is-size-5 publication-venue" style="margin-top: 10px;">
+            <i>IEEE J-STARS 2025</i>
+          </div>
+
+          <div class="publication-links">
+            <a href="https://doi.org/10.1109/JSTARS.2025.3552105" target="_blank" class="button is-dark link-button">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>Paper</span>
+            </a>
+            <a href="#" target="_blank" class="button is-dark link-button">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code (Coming Soon)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -21,7 +116,7 @@
   </div>
 </section>
 
-<hr>
+<hr class="container is-max-desktop">
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -36,24 +131,20 @@
             <b>(2) Divide-and-Conquer Large-Scene Reconstruction</b>, and 
             <b>(3) Anisotropic Kernel Rendering</b>.
           </p>
-          <img src="images/pipeline.png"
-               style="width: 100%; max-width: 1000px; margin-top:15px;"
-               class="framework-image"
-               alt="Ortho-3DGS pipeline overview."/>
+          <img src="images/pipeline.png" style="width: 100%; max-width: 1000px; margin-top:15px;" class="framework-image" alt="Ortho-3DGS pipeline overview."/>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<hr>
+<hr class="container is-max-desktop">
 
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3" style="text-align: center;">Experimental Results</h2>
     <br/>
 
-    <!-- Example comparative results -->
     <div class="columns is-centered">
       <div class="column">
         <div class="comparison-container">
@@ -78,27 +169,39 @@
     </div>
 
     <br/>
-    <!-- More results section -->
-    <div class="image-container">
-      <img style="width: 90%;" src="images/large_scale.png" alt="Large-scale reconstruction"/>
-      <p class="has-text-centered"><i>Large-scale urban reconstruction with Ortho-3DGS.</i></p>
+    
+    <div class="image-container has-text-centered">
+      <img style="width: 90%; border-radius: 8px;" src="images/large_scale.png" alt="Large-scale reconstruction"/>
+      <p style="margin-top: 10px;"><i>Large-scale urban reconstruction with Ortho-3DGS.</i></p>
     </div>
   </div>
 </section>
 
-<hr>
+<hr class="container is-max-desktop">
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>
-@article{Yang2025Ortho3DGS,
+    <h2 class="title is-3">BibTeX</h2>
+    <pre style="border-radius: 8px;"><code>@article{Yang2025Ortho3DGS,
   author    = {Junxing Yang and Zhenglong Cai and Tianjiao Wang and Haoran Gao and He Huang},
   title     = {Ortho-3DGS: True Digital Orthophoto Generation From UAV Imagery Using Depth-Regulated 3D Gaussian Splatting},
   journal   = {IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing (J-STARS)},
   year      = {2025},
   doi       = {10.1109/JSTARS.2025.3552105}
-}
-    </code></pre>
+}</code></pre>
   </div>
 </section>
+
+<footer class="footer" style="background-color: #fafafa; padding: 2rem 1.5rem;">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        Website template adapted from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>. 
+        Powered by <a href="https://bulma.io" target="_blank">Bulma</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
