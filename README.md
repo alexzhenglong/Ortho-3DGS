@@ -18,7 +18,7 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 All UAV benchmark datasets utilized in this research are publicly hosted on our **Hugging Face** repository. You can seamlessly download the pre-processed data to verify the training and rendering performance of the Ortho-3DGS pipeline.
 
-🤗 **[Download the Ortho-3DGS Datasets on Hugging Face here](https://www.google.com/search?q=YOUR_HUGGINGFACE_LINK_HERE)**
+🤗 **[Download the Ortho-3DGS Datasets on Hugging Face here](https://huggingface.co/datasets/alexzhenglong/Ortho-3DGS-Datasets)**
 
 ---
 
