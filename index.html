@@ -2,36 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ortho-3DGS: True Digital Orthophoto Generation</title>
   
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"/>
 
-  <style>
+  <style type="text/css">
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+      font-weight: 300;
+      font-size: 18px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 1100px;
+      scroll-behavior: smooth; /* 添加平滑滚动效果，让点击 Bibtex 跳转更优雅 */
     }
-    .hero-body {
-      padding-bottom: 2rem;
+    h1 {
+      font-size: 32px;
+      font-weight: 300;
+      margin-top: 10px;
+      margin-bottom: 20px;
     }
-    .publication-title {
-      font-weight: 700;
-      margin-bottom: 1.5rem;
+    a:link, a:visited {
+      color: #1367a7;
+      text-decoration: none;
     }
-    .author-block {
-      display: inline-block;
-      margin-right: 15px;
-      font-size: 1.2rem;
+    a:hover {
+      color: #208799;
     }
-    .publication-links {
-      margin-top: 1.5rem;
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+      margin-top: 30px;
+      margin-bottom: 30px;
     }
-    .link-button {
-      margin: 5px;
-      border-radius: 20px;
+    pre {
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      overflow-x: auto;
+      border: 1px solid #ddd;
     }
     /* Slider Customization */
     .comparison-container {
@@ -39,6 +51,8 @@
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      width: 480px; /* 控制网格中每张图片的宽度 */
+      margin: 10px auto;
     }
     .image-label {
       background: rgba(0, 0, 0, 0.6);
@@ -49,159 +63,245 @@
       font-weight: bold;
       pointer-events: none;
       z-index: 10;
+      font-family: 'Segoe UI', sans-serif;
     }
-    .framework-image {
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    img-comparison-slider img {
+      width: 100%;
+      display: block;
     }
   </style>
 </head>
 <body>
+  
+  <br>
+  <center>
+    <span style="font-size:36px; font-weight: bold;">Ortho-3DGS: True Digital Orthophoto Generation</span><br>
+    <span style="font-size:24px">From UAV Imagery Using Depth-Regulated 3D Gaussian Splatting</span><br><br>
+    
+    <table align="center" width="900px">
+      <tr>
+        <td align="center"><span style="font-size:20px">Junxing Yang</span></td>
+        <td align="center"><span style="font-size:20px">Zhenglong Cai</span></td>
+        <td align="center"><span style="font-size:20px">Tianjiao Wang</span></td>
+        <td align="center"><span style="font-size:20px">Haoran Gao</span></td>
+        <td align="center"><span style="font-size:20px">He Huang</span></td>
+      </tr>
+    </table>
+    
+    <br>
+    <span style="font-size:20px"><i>IEEE J-STARS 2025</i></span><br><br>
+    
+    <table align="center" width="600px">
+      <tr>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size:24px"><a href="https://doi.org/10.1109/JSTARS.2025.3552105" target="_blank">[Paper]</a></span>
+          </center>
+        </td>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size:24px"><a href="https://github.com/alexzhenglong/Ortho-3DGS" target="_blank">[Code]</a></span>
+          </center>
+        </td>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size:24px"><a href="https://huggingface.co/datasets/alexzhenglong/Ortho-3DGS-Datasets" target="_blank">[Data]</a></span>
+          </center>
+        </td>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size:24px"><a href="#BibTeX">[Bibtex]</a></span>
+          </center>
+        </td>
+      </tr>
+    </table>
+  </center>
+  
+  <br>
+  <hr>
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-2 publication-title">Ortho-3DGS: True Digital Orthophoto Generation From UAV Imagery Using Depth-Regulated 3D Gaussian Splatting</h1>
-          
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Junxing Yang,</span>
-            <span class="author-block">Zhenglong Cai,</span>
-            <span class="author-block">Tianjiao Wang,</span>
-            <span class="author-block">Haoran Gao,</span>
-            <span class="author-block">He Huang</span>
-          </div>
+  <center><h1>Abstract</h1></center>
+  <table align="center" width="850px">
+    <tr>
+      <td align="justify">
+        This work presents <b>Ortho-3DGS</b>, a robust framework for True Digital Orthophoto Map (TDOM) generation 
+        from UAV imagery, published in <i>IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing (J-STARS)</i>.
+        Our method introduces a <b>depth-regulated 3D Gaussian Splatting</b> approach that integrates geometric consistency 
+        and appearance modeling for reliable orthophoto reconstruction in weakly dynamic urban environments.
+        Experiments on multiple UAV benchmark datasets demonstrate significant improvements in building edge sharpness,
+        occlusion handling, and suppression of ghosting artifacts compared to state-of-the-art methods and commercial software.
+        <br><br>
+        📄 <b>DOI:</b> <a href="https://doi.org/10.1109/JSTARS.2025.3552105" target="_blank">10.1109/JSTARS.2025.3552105</a>
+      </td>
+    </tr>
+  </table>
 
-          <div class="is-size-5 publication-venue" style="margin-top: 10px;">
-            <i>IEEE J-STARS 2025</i>
-          </div>
+  <br>
+  <hr>
 
-          <div class="publication-links">
-            <a href="https://doi.org/10.1109/JSTARS.2025.3552105" target="_blank" class="button is-dark link-button">
-              <span class="icon"><i class="fas fa-file-pdf"></i></span>
-              <span>Paper</span>
-            </a>
-            <a href="#" target="_blank" class="button is-dark link-button">
-              <span class="icon"><i class="fab fa-github"></i></span>
-              <span>Code (Coming Soon)</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <center><h1>Method Overview</h1></center>
+  <table align="center" width="850px">
+    <tr>
+      <td align="justify">
+        The following diagram illustrates the overall pipeline of Ortho-3DGS. 
+        Our framework consists of three key modules: 
+        <b>(1) Depth-Guided Gaussian Splatting</b>, 
+        <b>(2) Divide-and-Conquer Large-Scene Reconstruction</b>, and 
+        <b>(3) Anisotropic Kernel Rendering</b>.
+      </td>
+    </tr>
+  </table>
+  <br>
+  <table align="center" width="900px">
+    <tr>
+      <td align="center">
+        <img src="images/pipeline.jpg" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);" alt="Ortho-3DGS pipeline overview."/>
+      </td>
+    </tr>
+  </table>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            This work presents <b>Ortho-3DGS</b>, a robust framework for True Digital Orthophoto Map (TDOM) generation 
-            from UAV imagery, published in <i>IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing (J-STARS)</i>.
-            Our method introduces a <b>depth-regulated 3D Gaussian Splatting</b> approach that integrates geometric consistency 
-            and appearance modeling for reliable orthophoto reconstruction in weakly dynamic urban environments.
-            Experiments on multiple UAV benchmark datasets demonstrate significant improvements in building edge sharpness,
-            occlusion handling, and suppression of ghosting artifacts compared to state-of-the-art methods and commercial software.
-          </p>
-          <p style="margin-top:10px;">
-            📄 <b>DOI:</b> <a href="https://doi.org/10.1109/JSTARS.2025.3552105" target="_blank">10.1109/JSTARS.2025.3552105</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <br>
+  <hr>
 
-<hr class="container is-max-desktop">
+  <center><h1>Experimental Results</h1></center>
+  <br>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Method Overview</h2>
-        <div class="content has-text-justified">
-          <p>
-            The following diagram illustrates the overall pipeline of Ortho-3DGS. 
-            Our framework consists of three key modules: 
-            <b>(1) Depth-Guided Gaussian Splatting</b>, 
-            <b>(2) Divide-and-Conquer Large-Scene Reconstruction</b>, and 
-            <b>(3) Anisotropic Kernel Rendering</b>.
-          </p>
-          <img src="images/pipeline.png" style="width: 100%; max-width: 1000px; margin-top:15px;" class="framework-image" alt="Ortho-3DGS pipeline overview."/>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <p align="center" style="font-family: 'Georgia', serif; font-style: italic; font-size: 1.15rem; color: #4a4a4a; margin-bottom: 20px;">
+    Swipe to compare <span style="font-style: normal; font-weight: 700; color: #000;">Ortho-3DGS</span> against baseline methods on building edges.
+  </p>
 
-<hr class="container is-max-desktop">
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3" style="text-align: center;">Experimental Results</h2>
-    <br/>
-
-    <div class="columns is-centered">
-      <div class="column">
+  <table align="center" width="1000px">
+    <tr>
+      <td align="center" width="500px">
         <div class="comparison-container">
           <img-comparison-slider>
-            <img slot="first" src="images/compare/baseline1.png" alt="Baseline"/>
-            <img slot="second" src="images/compare/ours1.png" alt="Ours"/>
-          </img-comparison-slider>
-          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">Baseline</div>
-          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="comparison-container">
-          <img-comparison-slider>
-            <img slot="first" src="images/compare/baseline2.png" alt="Pix4D"/>
-            <img slot="second" src="images/compare/ours2.png" alt="Ours"/>
+            <img slot="first" src="images/p4d-1.png" alt="Pix4D"/>
+            <img slot="second" src="images/ours-1.png" alt="Ortho-3DGS"/>
           </img-comparison-slider>
           <div class="image-label" style="position: absolute; top: 10px; left: 10px;">Pix4D</div>
           <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
         </div>
-      </div>
-    </div>
+      </td>
+      <td align="center" width="500px">
+        <div class="comparison-container">
+          <img-comparison-slider>
+            <img slot="first" src="images/ms-1.png" alt="Metashape"/>
+            <img slot="second" src="images/ours-1.png" alt="Ortho-3DGS"/>
+          </img-comparison-slider>
+          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">Metashape</div>
+          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="500px">
+        <div class="comparison-container">
+          <img-comparison-slider>
+            <img slot="first" src="images/CC-1.png" alt="ContextCapture"/>
+            <img slot="second" src="images/ours-1.png" alt="Ortho-3DGS"/>
+          </img-comparison-slider>
+          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">ContextCapture (CC)</div>
+          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
+        </div>
+      </td>
+      <td align="center" width="500px">
+        <div class="comparison-container">
+          <img-comparison-slider>
+            <img slot="first" src="images/nerf-1.png" alt="NeRF"/>
+            <img slot="second" src="images/ours-1.png" alt="Ortho-3DGS"/>
+          </img-comparison-slider>
+          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">NeRF Baseline</div>
+          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
+        </div>
+      </td>
+    </tr>
+  </table>
 
-    <br/>
-    
-    <div class="image-container has-text-centered">
-      <img style="width: 90%; border-radius: 8px;" src="images/large_scale.png" alt="Large-scale reconstruction"/>
-      <p style="margin-top: 10px;"><i>Large-scale urban reconstruction with Ortho-3DGS.</i></p>
-    </div>
-  </div>
-</section>
+  <br><br>
 
-<hr class="container is-max-desktop">
+  <p align="center" style="font-family: 'Georgia', serif; font-style: italic; font-size: 1.15rem; color: #4a4a4a; margin-bottom: 20px;">
+    Swipe to compare <span style="font-style: normal; font-weight: 700; color: #000;">Ortho-3DGS</span> against baseline methods on net structures.
+  </p>
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title is-3">BibTeX</h2>
-    <pre style="border-radius: 8px;"><code>@article{Yang2025Ortho3DGS,
+  <table align="center" width="1000px">
+    <tr>
+      <td align="center" width="500px">
+        <div class="comparison-container">
+          <img-comparison-slider>
+            <img slot="first" src="images/p4d-3.png" alt="Pix4D"/>
+            <img slot="second" src="images/ours-3.png" alt="Ortho-3DGS"/>
+          </img-comparison-slider>
+          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">Pix4D</div>
+          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
+        </div>
+      </td>
+      <td align="center" width="500px">
+        <div class="comparison-container">
+          <img-comparison-slider>
+            <img slot="first" src="images/ms-3.png" alt="Metashape"/>
+            <img slot="second" src="images/ours-3.png" alt="Ortho-3DGS"/>
+          </img-comparison-slider>
+          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">Metashape</div>
+          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="500px">
+        <div class="comparison-container">
+          <img-comparison-slider>
+            <img slot="first" src="images/CC-3.png" alt="ContextCapture"/>
+            <img slot="second" src="images/ours-3.png" alt="Ortho-3DGS"/>
+          </img-comparison-slider>
+          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">ContextCapture (CC)</div>
+          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
+        </div>
+      </td>
+      <td align="center" width="500px">
+        <div class="comparison-container">
+          <img-comparison-slider>
+            <img slot="first" src="images/nerf-3.png" alt="NeRF"/>
+            <img slot="second" src="images/ours-3.png" alt="Ortho-3DGS"/>
+          </img-comparison-slider>
+          <div class="image-label" style="position: absolute; top: 10px; left: 10px;">NeRF Baseline</div>
+          <div class="image-label" style="position: absolute; top: 10px; right: 10px;">Ortho-3DGS</div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <br><br>
+
+  <p align="center" style="font-family: 'Georgia', serif; font-style: italic; font-size: 1.15rem; color: #4a4a4a; margin-top: 30px; margin-bottom: 20px;">
+    Large-scale, 3DGS-based true DOM generation results achieved by <span style="font-style: normal; font-weight: 700; color: #000;">Ortho-3DGS</span>.
+  </p>
+
+  <table align="center" width="1000px">
+    <tr>
+      <td align="center">
+        <img style="width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" src="images/largescales.png" alt="Large-scale reconstruction"/>
+      </td>
+    </tr>
+  </table>
+
+  <br>
+  <hr>
+
+  <center><h1 id="BibTeX">BibTeX</h1></center>
+  <table align="center" width="850px">
+    <tr>
+      <td align="left">
+<pre><code>@article{Yang2025Ortho3DGS,
   author    = {Junxing Yang and Zhenglong Cai and Tianjiao Wang and Haoran Gao and He Huang},
   title     = {Ortho-3DGS: True Digital Orthophoto Generation From UAV Imagery Using Depth-Regulated 3D Gaussian Splatting},
   journal   = {IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing (J-STARS)},
   year      = {2025},
   doi       = {10.1109/JSTARS.2025.3552105}
 }</code></pre>
-  </div>
-</section>
+      </td>
+    </tr>
+  </table>
 
-<footer class="footer" style="background-color: #fafafa; padding: 2rem 1.5rem;">
-  <div class="container">
-    <div class="content has-text-centered">
-      <p>
-        Website template adapted from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>. 
-        Powered by <a href="https://bulma.io" target="_blank">Bulma</a>.
-      </p>
-    </div>
-  </div>
-</footer>
-
+  <br><br><br>
 </body>
 </html>
