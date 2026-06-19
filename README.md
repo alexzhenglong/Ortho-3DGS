@@ -157,6 +157,3 @@ If you find our code, datasets, or methodology useful for your research, please 
 
 **Acknowledgements**: This work was supported by the *Graduate Innovation Project*. We extend our gratitude to the open-source community for the foundational work in 3D Gaussian Splatting and monocular depth estimation.
 
-```
-
-```
