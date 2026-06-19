@@ -1,6 +1,7 @@
 
-
 # Ortho-3DGS: True Digital Orthophoto Generation
+
+[![Project Page](https://img.shields.io/badge/Project-Page-blue?style=for-the-badge&logo=github)](https://alexzhenglong.github.io/Ortho-3DGS/)
 
 Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Generation From Unmanned Aerial Vehicle Imagery Using the Depth-Regulated 3D Gaussian Splatting"**, published in *IEEE J-STARS (2025)*.
 
@@ -51,26 +52,24 @@ For custom UAV datasets, depth maps must be generated before training. We utiliz
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/DepthAnything/Depth-Anything-V2.git
+git clone [https://github.com/DepthAnything/Depth-Anything-V2.git](https://github.com/DepthAnything/Depth-Anything-V2.git)
 
 ```
 
-
 2. Download the [Depth-Anything-V2-Large](https://huggingface.co/depth-anything/Depth-Anything-V2-Large/resolve/main/depth_anything_v2_vitl.pth?download=true) checkpoint and place it in the `Depth-Anything-V2/checkpoints/` directory.
 3. Generate the depth maps:
+
 ```bash
 python Depth-Anything-V2/run.py --encoder vitl --pred-only --grayscale --img-path <path_to_input_images> --outdir <output_path>
 
 ```
 
-
 4. Generate the `depth_params.json` file to align the monocular depth scale with your COLMAP sparse reconstruction:
+
 ```bash
 python utils/make_depth_scale.py --base_dir <path_to_colmap> --depths_dir <path_to_generated_depths>
 
 ```
-
-
 
 ### 3. Model Training (Optimizer)
 
@@ -157,3 +156,7 @@ If you find our code, datasets, or methodology useful for your research, please 
 ---
 
 **Acknowledgements**: This work was supported by the *Graduate Innovation Project*. We extend our gratitude to the open-source community for the foundational work in 3D Gaussian Splatting and monocular depth estimation.
+
+```
+
+```
