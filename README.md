@@ -120,7 +120,11 @@ By default, we recommend utilizing the **Virtual Camera** method (Option A) for 
 
 ```bash
 # Render using the default virtual camera approach (No extra compilation needed)
-python render_dom.py -m <path_to_model> -s <path_to_data> --mode virtual
+python render_ortho.py \
+  -m /path/to/your/model \
+  --ortho_scale 55.0 \
+  --resolution_scale 15 \
+  --elevation 20.0
 
 ```
 
