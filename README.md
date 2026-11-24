@@ -5,6 +5,8 @@
 
 Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Generation From Unmanned Aerial Vehicle Imagery Using the Depth-Regulated 3D Gaussian Splatting"**, published in *IEEE J-STARS (2025)*.
 
+**Non-commercial use only.** Ortho-3DGS is provided for non-commercial research and evaluation only. Commercial use requires prior written permission from the applicable rights holders. Code derived from the original 3D Gaussian Splatting implementation remains subject to the [Gaussian-Splatting License](LICENSE.md).
+
 ---
 
 ## 🌟 Key Highlights
