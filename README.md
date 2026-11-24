@@ -144,6 +144,14 @@ python render_ortho.py \
 
 ---
 
+## Contributors
+
+- [haoran269](https://github.com/haoran269)
+- [RZ (wtj-zhong)](https://github.com/wtj-zhong)
+- [winmler](https://github.com/winmler)
+
+---
+
 ## 📝 Citation
 
 If you find our code, datasets, or methodology useful for your research, please consider citing our paper:
