@@ -7,6 +7,8 @@ Official implementation of the paper **"Ortho-3DGS: True Digital Orthophoto Gene
 
 **Non-commercial use only.** Ortho-3DGS is provided for non-commercial research and evaluation only. Commercial use requires prior written permission from the applicable rights holders. Code derived from the original 3D Gaussian Splatting implementation remains subject to the [Gaussian-Splatting License](LICENSE.md).
 
+**Related Chinese invention patent:** [CN119477770B](https://patents.google.com/patent/CN119477770B/zh) — 基于三维高斯泼溅的正射影像生成方法、装置及存储介质 (Orthophoto generation method, apparatus, and storage medium based on 3D Gaussian splatting). Granted to Beijing University of Civil Engineering and Architecture (BUCEA) on April 18, 2025. Application No. 202411611511.7.
+
 ---
 
 ## 🌟 Key Highlights
